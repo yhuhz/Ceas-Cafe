@@ -17,38 +17,34 @@
       <h3 class="q-my-none text-center">What would you like to have today?</h3>
 
       <div class="food_menu q-mt-md">
-        <h3 class="q-my-none">Rice Meals</h3>
-        <div class="q-pa-md">
-          <q-carousel
-            v-model="slide"
-            transition-prev="slide-right"
-            transition-next="slide-left"
-            swipeable
-            animated
-            control-color="primary"
-            navigation
-            padding
-            arrows
-            height="300px"
-            class="bg-grey-1 shadow-2 rounded-borders"
-          >
-            <q-carousel-slide :name="1" class="column no-wrap">
-              <div
-                class="row fit justify-start items-center q-gutter-xs q-col-gutter no-wrap"
-              >
-                <div
-                  v-for="n in 5"
-                  :key="n"
-                  class="q-px-md"
-                  style="width: 100%"
-                >
-                  <q-img src="../../assets/images/Menu/MenuOne.jpg" />
-                  <h5 class="q-my-none text-center">Rice Meals</h5>
-                </div>
-              </div>
-            </q-carousel-slide>
-          </q-carousel>
-        </div>
+        <q-table
+          grid
+          title="Rice Meals"
+          :rows="rows"
+          :columns="columns"
+          row-key="id"
+          :filter="filter"
+          hide-header
+        >
+          <template v-slot:body-cell-name="props">
+            <q-td :props="props">
+              <img src="../../assets/images/Menu/MenuOne.jpg" />
+            </q-td>
+          </template>
+          <template v-slot:top-right>
+            <q-input
+              borderless
+              dense
+              debounce="300"
+              v-model="filter"
+              placeholder="Search"
+            >
+              <template v-slot:append>
+                <q-icon name="search" />
+              </template>
+            </q-input>
+          </template>
+        </q-table>
       </div>
     </div>
 
@@ -65,11 +61,15 @@
 
 <script>
 import { useRoute } from "vue-router";
-import { ref } from "vue";
+import { ref, watch } from "vue";
+import { SetMenu, MenuList } from "../../composables/Ceas";
+import _ from "lodash";
 
 export default {
   setup() {
     const route = useRoute();
+    SetMenu().then((response) => {});
+
     let slide = ref(1);
     let isFullScreen = true;
 
@@ -89,11 +89,41 @@ export default {
       : (counter.value =
           pageNames.findIndex((e) => e === route.path.replace("/", "")) + 1);
 
+    const columns = [
+      {
+        name: "name",
+        required: true,
+        align: "center",
+        field: "name",
+        sortable: true,
+      },
+      {
+        name: "price",
+        align: "center",
+        field: "price",
+        sortable: true,
+      },
+    ];
+
+    let rows = ref();
+
+    watch(
+      () => _.cloneDeep(MenuList.value),
+      () => {
+        rows.value = MenuList.value;
+      }
+    );
+
     return {
+      MenuList,
       slide,
       isFullScreen,
       counter,
       backgroundColors,
+
+      filter: ref(""),
+      columns,
+      rows,
     };
   },
 };
@@ -129,10 +159,6 @@ export default {
     color: black;
     // border: 1px solid black;
     width: 75vw;
-
-    .food_menu {
-      // border: 1px solid black;
-    }
   }
 }
 </style>
