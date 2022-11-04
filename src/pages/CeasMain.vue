@@ -59,7 +59,7 @@
           </div>
         </div>
 
-        <div class="optionsDisplayDetails absolute-top">
+        <!-- <div class="optionsDisplayDetails absolute-top">
           <transition-group
             appear
             enter-active-class="animated slideInDown"
@@ -90,7 +90,7 @@
               </div>
             </div>
           </transition-group>
-        </div>
+        </div> -->
 
         <div
           class="bottomDetails fixed-bottom"
@@ -146,11 +146,11 @@ export default {
       "location_on",
     ];
     let pageNames = [
-      "menu",
-      "workspace",
-      "conference-area",
-      "photoshoot",
-      "aboiut-us",
+      "user/menu",
+      "user/workspace",
+      "user/conference_area",
+      "user/photoshoot",
+      "user/about-us",
     ];
 
     let backgroundColors = ["#2185d5", "#E38B29", "#850E35"];

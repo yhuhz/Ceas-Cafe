@@ -33,12 +33,18 @@ const routes = [
         name: "home",
         component: () => import("pages/CeasMain.vue"),
       },
+    ],
+  },
+  {
+    path: "/user",
+    name: "menu",
+    component: () => import("layouts/SystemMain.vue"),
+    children: [
       {
         path: "menu",
         name: "menu",
         component: () => import("pages/Ceas/MenuPage.vue"),
       },
-
       {
         path: "workspace",
         name: "workspace",
