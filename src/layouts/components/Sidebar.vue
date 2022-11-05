@@ -1,37 +1,29 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
-  <q-drawer show-if-above :width="200" class="colorDrawer q-py-lg">
-    <q-btn
-      dense
-      flat
-      padding="13px xs"
-      class="full-width"
-      @click="$router.push('/')"
-    >
+  <q-drawer show-if-above :width="200" class="colorDrawer" side="left">
+    <q-btn dense flat class="full-width q-py-lg" @click="$router.push('/')">
       <q-img
         src="../../assets/images/CeasLogo.png"
-        style="height: 70px; width: 80px"
+        style="height: 100px; width: 110px"
       />
     </q-btn>
     <q-btn
       icon="restaurant_menu"
       label="Menu"
-      padding="13px xs"
       stack
       :color="activeColor('/user/menu')"
       :flat="$route.path === '/user/menu' ? false : true"
-      class="full-width"
+      class="full-width q-py-lg"
       unelevated
       @click="$route.path === '/user/menu' ? '' : $router.push('menu')"
     ></q-btn>
     <q-btn
       icon="work"
       label="Workspace"
-      padding="13px xs"
       stack
       :color="activeColor('/user/workspace')"
       :flat="$route.path === '/user/workspace' ? false : true"
-      class="full-width"
+      class="full-width q-py-lg"
       unelevated
       @click="
         $route.path === '/user/workspace' ? '' : $router.push('workspace')
@@ -40,11 +32,10 @@
     <q-btn
       icon="video_call"
       label="Conference Area"
-      padding="13px xs"
       stack
       :color="activeColor('/user/conference_area')"
       :flat="$route.path === '/user/conference_area' ? false : true"
-      class="full-width"
+      class="full-width q-py-lg"
       unelevated
       @click="
         $route.path === '/user/conference_area'
@@ -55,11 +46,10 @@
     <q-btn
       icon="photo_camera"
       label="Photoshoot"
-      padding="13px xs"
       stack
       :color="activeColor('/user/photoshoot')"
       :flat="$route.path === '/user/photoshoot' ? false : true"
-      class="full-width"
+      class="full-width q-py-lg"
       unelevated
       @click="
         $route.path === '/user/photoshoot' ? '' : $router.push('photoshoot')
@@ -68,11 +58,10 @@
     <q-btn
       icon="location_on"
       label="About Us"
-      padding="13px xs"
       stack
       :color="activeColor('/user/about')"
       :flat="$route.path === '/user/about' ? false : true"
-      class="full-width"
+      class="full-width q-py-lg"
       unelevated
       @click="$route.path === '/user/about' ? '' : $router.push('about')"
     ></q-btn>

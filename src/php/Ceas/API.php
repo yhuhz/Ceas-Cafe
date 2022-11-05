@@ -18,12 +18,26 @@
 
       public function httpGet($payload)
       {
-          $ceas = $this->db->get('menu');
+        if (isset($_GET['query'])) {
+          if ($_GET['query'] === 'category') {
+            $this->db->groupBy ($_GET['query']);
+          }
 
-          echo json_encode(array('status' => 'success',
-          'data' => $ceas,
-          'method' => 'GET'
+          $ceas = $this->db->get('category');
+          echo json_encode(array(
+            'status' => 'success',
+            'data' => $ceas,
+            'method' => 'GET'
           ));
+        } else {
+          $ceas = $this->db->get('menu');
+          echo json_encode(array(
+            'status' => 'success',
+            'data' => $ceas,
+            'method' => 'GET'
+          ));
+        }
+
       }
       public function httpPost($payload)
       {

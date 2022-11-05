@@ -2,8 +2,10 @@ import { ref, readonly } from "vue";
 import axios from "axios";
 
 let Menu = ref([]);
-
 let MenuList = readonly(Menu);
+
+let Category = ref([]);
+
 let pathlink = "http://localhost/Ceas Cafe Quasar/src/php/Ceas/API.php";
 
 let storeTaskID = ref(null);
@@ -15,6 +17,22 @@ const SetMenu = (payload) => {
       .then((response) => {
         console.log(response.data);
         Menu.value = response.data.data;
+        resolve(response.data);
+      })
+      .catch((error) => {
+        reject(error);
+      });
+  });
+};
+
+const SetCategories = (payload) => {
+  console.log("payload", payload);
+  return new Promise((resolve, reject) => {
+    axios
+      .get(pathlink, { params: { query: payload } })
+      .then((response) => {
+        console.log(response.data);
+        Category.value = response.data.data;
         resolve(response.data);
       })
       .catch((error) => {
@@ -106,7 +124,9 @@ const DeleteTaskTime = (payload) => {
 export {
   storeTaskID,
   MenuList,
+  Category,
   SetMenu,
+  SetCategories,
   SearchTasks,
   AddTaskTime,
   UpdateTaskTime,
